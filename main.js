@@ -14,21 +14,39 @@ var divide = document.querySelector('#divide');
 var equals = document.querySelector('equals');
 var clear = document.querySelector('#clear');
 var num1 = input.value;
+var currentValue = String(input.innerHTML);
+var lastChar = currentValue[currentValue.length-1];
 
 function getValue(evt) {
-  var currentValue = String(evt.target.value);
-  console.log(currentValue);
-  input.innerText = currentValue;
+  var totalValue = String(evt.target.value) + currentValue;
+  console.log(totalValue);
+  input.innerText = totalValue;
 }
 
 for (var i = 0; i < number.length; i++) {
   number[i].addEventListener('click', getValue);
-  var value = Number(number[i].value);
+  var value = String(number[i].value);
 }
+
+// function calculate (evt) {
+// // if the current input is not blank, do this
+// if (currentValue !== '') {
+//   var answer = currentValue / evt.target.value;
+//   console.log(answer);
+// }
+// }
+//
+// equals.addEventListener('click', calculate);
+
+
 
 clear.addEventListener('click', function() {
   input.innerText = '';
 });
+
+
+
+
 
 
 
