@@ -1,3 +1,38 @@
+.calculator {
+  width: 90%;
+  margin: 0 auto; }
+  .calculator .result {
+    width: 98%;
+    height: 100px;
+    margin: 15px 2px;
+    background: #ddd; }
+  .calculator input {
+    width: 24%;
+    height: 100px;
+    margin: 2px;
+    background: #4ea5fd;
+    color: #fff;
+    font-size: 4rem;
+    text-align: center;
+    line-height: 6.5rem;
+    font-family: avenir;
+    float: left; }
 
+#equals {
+  width: 49%; }
+
+@media screen and (max-width: 500px) {
+  .calculator {
+    width: 100%; }
+    .calculator input {
+      width: 23%; }
+    .calculator #equals {
+      width: 47%; } }
+@media screen and (min-width: 600px) {
+  .calculator {
+    width: 70%; } }
+@media screen and (min-width: 800px) {
+  .calculator {
+    width: 50%; } }
 
 /*# sourceMappingURL=main.css.map */
