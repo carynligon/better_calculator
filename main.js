@@ -10,22 +10,34 @@
 var input = document.querySelector('.result');
 var number = document.querySelectorAll('.number');
 var operator = document.querySelectorAll('.operator');
-var divide = document.querySelector('#divide');
 var equals = document.querySelector('equals');
 var clear = document.querySelector('#clear');
-var num1 = input.value;
-var currentValue = String(input.innerHTML);
-var lastChar = currentValue[currentValue.length-1];
+var currentString = [];
 
+// if the loop below comes across a click, this function will run
 function getValue(evt) {
-  var totalValue = String(evt.target.value) + currentValue;
-  console.log(totalValue);
-  input.innerText = totalValue;
+  var enteredNumber = Number(evt.target.value);
+  console.log(enteredNumber);
+  input.innerText = enteredNumber;
+  var addArray = currentString.push(enteredNumber);
+  concatenate();
 }
 
+// Loop for if number buttons are clicked
 for (var i = 0; i < number.length; i++) {
   number[i].addEventListener('click', getValue);
   var value = String(number[i].value);
+}
+
+
+
+function concatenate() {
+for (var i = 0; i < currentString.length; i++) {
+  if (typeof currentString[i] === number && typeof currentString[i-1] === number) {
+      console.log('hi');
+      // console.log(currentString[i] + currentString[i-1]);
+  }
+}
 }
 
 // function calculate (evt) {
