@@ -15,11 +15,15 @@
 var input = document.querySelector('.result');
 var number = document.querySelectorAll('.number');
 var operator = document.querySelectorAll('.operator');
-var equals = document.querySelector('equals');
+var equals = document.querySelector('.equals');
 var clear = document.querySelector('#clear');
 var currentString = [''];
 var opString = [''];
 var counter = 0;
+var selectedOperator = '';
+var num1 = 0;
+var num2 = 0;
+var answer = 0;
 
 // if the number loop below comes across a click, this function will run
 function getValue(evt) {
@@ -29,10 +33,12 @@ function getValue(evt) {
     counter++;
     currentString[counter] = enteredNumber;
     input.innerText = enteredNumber;
+    storeValues();
   }
   else {
     currentString[counter] = currentString[counter] + enteredNumber;
     input.innerText = String(currentString[counter]);
+    storeValues();
   }
 }
 
@@ -57,13 +63,43 @@ for (var i = 0; i < operator.length; i++) {
 
 // MATH
 
-// for (i = 1; i < currentString.length, i++) {
-//   if (currentString[i] ===)
-// }
+function storeValues () {
+  for (i = 0; i < currentString.length; i++) {
+    if (currentString[i] === '+' || currentString[i] === '-' || currentString[i] === 'x' || currentString[i] === '/') {
+      selectedOperator = currentString[i];
+    }
+    else if (currentString[i-1] === '+' || currentString[i-1] === '-' || currentString[i-1] === 'x' || currentString[i-1] === '/') {
+      num2 = Number(currentString[i]);
+    }
+    else {
+      num1 = Number(currentString[i]);
+    }
+  }
+}
 
+equals.addEventListener('click', calculate);
 
+function calculate() {
+  if (selectedOperator === '+') {
+    answer = num1 + num2;
+    input.innerText = answer;
+  }
+  else if (selectedOperator === '-') {
+    answer = num1 - num2;
+    input.innerText = answer;
+  }
+  else if (selectedOperator === '/') {
+    answer = num1/num2;
+    input.innerText = answer;
+  }
+  else if (selectedOperator === 'x') {
+    answer = num1*num2;
+    input.innerText = answer;
+  }
+}
 
-
+// Needs to be fixed
 clear.addEventListener('click', function() {
+  currentString = [];
   input.innerText = '';
 });
