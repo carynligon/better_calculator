@@ -14,7 +14,7 @@ var equals = document.querySelector('equals');
 var clear = document.querySelector('#clear');
 var currentString = [];
 
-// if the loop below comes across a click, this function will run
+// if the number loop below comes across a click, this function will run
 function getValue(evt) {
   var enteredNumber = Number(evt.target.value);
   console.log(enteredNumber);
@@ -23,21 +23,27 @@ function getValue(evt) {
   concatenate();
 }
 
+function getOperator(evt) {
+  var enteredOperator = String(evt.target.value);
+  console.log(enteredOperator);
+}
+
 // Loop for if number buttons are clicked
 for (var i = 0; i < number.length; i++) {
   number[i].addEventListener('click', getValue);
   var value = String(number[i].value);
 }
 
-
+for (var i = 0; i < operator.length; i++) {
+  operator[i].addEventListener('click', getOperator);
+  var operator = String(operator[i].value);
+}
 
 function concatenate() {
-for (var i = 0; i < currentString.length; i++) {
-  if (typeof currentString[i] === number && typeof currentString[i-1] === number) {
+  var counter = currentString.length;
+  if (typeof currentString[counter] === number) {
       console.log('hi');
-      // console.log(currentString[i] + currentString[i-1]);
   }
-}
 }
 
 // function calculate (evt) {
