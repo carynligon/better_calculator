@@ -15,14 +15,15 @@
 var input = document.querySelector('.result');
 var number = document.querySelectorAll('.number');
 var operator = document.querySelectorAll('.operator');
+var negPos = document.querySelector('#neg-pos');
 var equals = document.querySelector('.equals');
 var clear = document.querySelector('#clear');
-var currentString = [''];
-var opString = [''];
-var counter = 0;
+// var currentString = [''];
+// var opString = [''];
+// var counter = 0;
 var selectedOperator = '';
-var num1 = 0;
-var num2 = 0;
+var num1 = '';
+var num2 = '';
 var answer = 0;
 
 
@@ -30,16 +31,21 @@ var answer = 0;
 function getValue(evt) {
   var enteredNumber = String(evt.target.value);
   console.log(enteredNumber);
-  if (input.innerText === '+' || input.innerText === '-' || input.innerText === 'x' || input.innerText === '/') {
-    counter++;
-    currentString[counter] = enteredNumber;
-    input.innerText = enteredNumber;
-    storeValues();
+  if (selectedOperator === '' && num1 === '') {
+    num1 = enteredNumber;
+    input.innerText = num1;
   }
-  else {
-    currentString[counter] = currentString[counter] + enteredNumber;
-    input.innerText = String(currentString[counter]);
-    storeValues();
+  else if (selectedOperator === '' && num1 !== '' && num2 === '') {
+    num1 += enteredNumber;
+    input.innerText = num1;
+  }
+  else if (selectedOperator !== '' && num2 === '') {
+    num2 = enteredNumber;
+    input.innerText = num2;
+  }
+  else if (selectedOperator !== '' && num2 !== '') {
+    num2 += enteredNumber;
+    input.innerText = num2;
   }
 }
 
@@ -50,11 +56,9 @@ for (var i = 0; i < number.length; i++) {
 
 // loop for operators - maybe include these in the same loop above and then use an if, else if statements to check if values are operators or numbers, then add event listeners to the operators.
 function getOperator(evt) {
-  counter++;
-  var enteredOperator = String(evt.target.value);
-  console.log(enteredOperator);
-  currentString[counter] = enteredOperator;
-  input.innerText = enteredOperator;
+  selectedOperator = String(evt.target.value);
+  console.log(selectedOperator);
+  input.innerText = selectedOperator;
 }
 
 // loop for checking for events on operators, then go up ^
@@ -62,55 +66,52 @@ for (var i = 0; i < operator.length; i++) {
   operator[i].addEventListener('click', getOperator);
 }
 
-// MATH
-
-function storeValues () {
-  for (i = 0; i < currentString.length; i++) {
-    if (currentString[i] === '+' || currentString[i] === '-' || currentString[i] === 'x' || currentString[i] === '/' || currentString[i] === '%' || currentString[i] === '-/+') {
-      selectedOperator = currentString[i];
-    }
-    else if (currentString[i-1] === '+' || currentString[i-1] === '-' || currentString[i-1] === 'x' || currentString[i-1] === '/' || currentString[i-1] === '%' || currentString[i-1] === '-/+') {
-      num2 = Number(currentString[i]);
-    }
-    else {
-      num1 = Number(currentString[i]);
-    }
-  }
-}
-
 clear.addEventListener('click', function() {
   input.value = '';
   input.innerHTML = '';
-  counter = 0;
-  currentString[counter] = '';
+  num1 = '';
+  num2 = '';
+  selectedOperator = '';
 });
 
+// When you hit equals button, go to calculate() function
 equals.addEventListener('click', calculate);
 
+// MATH
 function calculate() {
   if (selectedOperator === '+') {
-    answer = num1 + num2;
+    answer = Number(num1) + Number(num2);
     input.innerText = answer;
   }
   else if (selectedOperator === '-') {
-    answer = num1 - num2;
+    answer = Number(num1) - Number(num2);
     input.innerText = answer;
   }
   else if (selectedOperator === '/') {
-    answer = num1/num2;
+    answer = Number(num1)/Number(num2);
     input.innerText = answer;
   }
   else if (selectedOperator === 'x') {
-    answer = num1*num2;
+    answer = Number(num1)*Number(num2);
     input.innerText = answer;
   }
-
-  // Not working
   else if (selectedOperator === '%') {
-    answer = num1/100;
+    answer = Number(num1)/100;
     input.innerText = answer;
   }
-  else if (selectedOperator === '-/+') {
-    answer = num1 - 2*num1;
+}
+
+negPos.addEventListener('click', negOrPos);
+
+function negOrPos () {
+  if (num1 === '' && input.innerText !== '-') {
+    input.innerText = '-';
+  }
+  else if (num1 === '' && input.innerText === '-') {
+    input.innerText= '';
+  }
+  else if (num1 !== '') {
+    num1 = num1 - (num1 * 2);
+    input.innerText = num1;
   }
 }
