@@ -25,6 +25,7 @@ var num1 = 0;
 var num2 = 0;
 var answer = 0;
 
+
 // if the number loop below comes across a click, this function will run
 function getValue(evt) {
   var enteredNumber = String(evt.target.value);
@@ -65,10 +66,10 @@ for (var i = 0; i < operator.length; i++) {
 
 function storeValues () {
   for (i = 0; i < currentString.length; i++) {
-    if (currentString[i] === '+' || currentString[i] === '-' || currentString[i] === 'x' || currentString[i] === '/') {
+    if (currentString[i] === '+' || currentString[i] === '-' || currentString[i] === 'x' || currentString[i] === '/' || currentString[i] === '%' || currentString[i] === '-/+') {
       selectedOperator = currentString[i];
     }
-    else if (currentString[i-1] === '+' || currentString[i-1] === '-' || currentString[i-1] === 'x' || currentString[i-1] === '/') {
+    else if (currentString[i-1] === '+' || currentString[i-1] === '-' || currentString[i-1] === 'x' || currentString[i-1] === '/' || currentString[i-1] === '%' || currentString[i-1] === '-/+') {
       num2 = Number(currentString[i]);
     }
     else {
@@ -76,6 +77,13 @@ function storeValues () {
     }
   }
 }
+
+clear.addEventListener('click', function() {
+  input.value = '';
+  input.innerHTML = '';
+  counter = 0;
+  currentString[counter] = '';
+});
 
 equals.addEventListener('click', calculate);
 
@@ -96,10 +104,13 @@ function calculate() {
     answer = num1*num2;
     input.innerText = answer;
   }
-}
 
-// Needs to be fixed
-clear.addEventListener('click', function() {
-  currentString = [];
-  input.innerText = '';
-});
+  // Not working
+  else if (selectedOperator === '%') {
+    answer = num1/100;
+    input.innerText = answer;
+  }
+  else if (selectedOperator === '-/+') {
+    answer = num1 - 2*num1;
+  }
+}
