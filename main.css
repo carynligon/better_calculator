@@ -12,13 +12,13 @@
     font-family: avenir;
     text-align: right;
     padding-right: 5%;
-    color: #acd45a;
+    color: #586d72;
     box-sizing: border-box; }
   .calculator input {
     width: 24%;
     height: 100px;
     margin: 2px;
-    background: #4ea5fd;
+    background: #8bc4fe;
     color: #fff;
     font-size: 4rem;
     text-align: center;
@@ -26,11 +26,20 @@
     font-family: avenir;
     float: left;
     border: 0; }
-    .calculator input:hover {
-      background: #acd45a; }
+  .calculator .number {
+    background: #4ea5fd; }
+
+input:hover {
+  background: #72d0ae; }
+
+.number:hover {
+  background: #72d0ae; }
 
 #equals {
-  width: 49%; }
+  width: 49%;
+  background: #586d72; }
+  #equals:hover {
+    background: #708e95; }
 
 @media screen and (max-width: 500px) {
   .calculator {
